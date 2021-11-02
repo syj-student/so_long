@@ -6,7 +6,7 @@
 #    By: yusong <42.4.yusong@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/01 10:14:35 by yusong            #+#    #+#              #
-#    Updated: 2021/11/01 13:33:02 by yusong           ###   ########.fr        #
+#    Updated: 2021/11/02 12:21:40 by yusong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ FLAGS = -Wextra -Werror -Wall
 HEADER = headerfile.h
 DYLIB = libmlx.dylib
 DYLIB_DIR = minilibx
-SRCS = main.c
+SRCS = ./src/main.c \
+		./src/map.c \
+		./src/ft_split.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
@@ -38,7 +40,7 @@ re: fclean all
 $(NAME): $(OBJS)
 	$(MAKE) -C $(DYLIB_DIR)
 	cp $(DYLIB_DIR)/$(DYLIB) .
-	$(CC) $(DYLIB) $^ -o $@
+	$(CC) -I src $(DYLIB) $^ -o $@
 
 %.o: %.c $(HEADER)
 	$(CC) $(FLAGS) -c -o $@ $<
