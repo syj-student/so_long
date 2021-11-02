@@ -6,13 +6,13 @@
 /*   By: yusong <42.4.yusong@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 09:50:33 by yusong            #+#    #+#             */
-/*   Updated: 2021/11/02 12:21:40 by yusong           ###   ########.fr       */
+/*   Updated: 2021/11/02 17:49:33 by yusong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "headerfile.h"
 
-void	loadMap(char *map_name, char **map)
+void	loadMap(char *map_name, char **map, t_ptr *game)
 {
 	int		map_fd;
 
@@ -20,13 +20,8 @@ void	loadMap(char *map_name, char **map)
 	if (map_fd == -1)
 		errorExit("Open");
 	map = readLines(map_fd);
-	int x;
-	x = 0;
-	while (map[x])
-	{
-		printf("%s\n", map[x]);
-		x++;
-	}
+	mapChecker(map, game);
+	setPlayerPosition(map, game);
 }
 
 char	**readLines(int fd)
@@ -35,21 +30,28 @@ char	**readLines(int fd)
 	char	*line;
 	char	**lines;
 	int		i;
+	int		cnt;
 
-	line = 0;
-	while (read(fd, buffer, 100) > 0)
+	line = (char *)safeMalloc(1);
+	line[0] = 0;
+	cnt = read(fd, buffer, 100);
+	while (cnt > 0)
+	{
+		buffer[cnt] = '\0';
 		line = combineTwoLines(line, buffer);
+		cnt = read(fd, buffer, 100);
+	}
 	if (!line || !*line)
 		errorExit("Map");
-	return ft_split(line, '\n');
+	lines = ft_split(line, '\n');
+	free(line);
+	return (lines);
 }
 
 static size_t	duplicateLine(char *dst, char *src, size_t start)
 {
 	size_t	i;
 
-	if (!src)
-		return (start);
 	i = 0;
 	while (src[i])
 	{
@@ -57,7 +59,6 @@ static size_t	duplicateLine(char *dst, char *src, size_t start)
 		start++;
 		i++;
 	}
-	free(src);
 	return (start);
 }
 
@@ -69,6 +70,7 @@ char	*combineTwoLines(char *l1, char *l2)
 	comb_line = (char *)safeMalloc(ft_strlen(l1) + ft_strlen(l2) + 1);
 	i = duplicateLine(comb_line, l1, 0);
 	i = duplicateLine(comb_line, l2, i);
+	free(l1);
 	comb_line[i] = '\0';
 	return (comb_line);
 }

@@ -6,7 +6,7 @@
 /*   By: yusong <42.4.yusong@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 10:57:31 by yusong            #+#    #+#             */
-/*   Updated: 2021/11/02 12:07:32 by yusong           ###   ########.fr       */
+/*   Updated: 2021/11/02 17:18:26 by yusong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	mapChecker(char **map, t_ptr *game)
 {
 	checkRectangleAndValidChar(map, game);
 	checkSurroundWall(map, game);
+	mapComponentCheck(map);
 }
 
 static char	isWall(char c)
@@ -34,14 +35,16 @@ void	checkSurroundWall(char **map, t_ptr *game)
 	height = 0;
 	while (width < game->map_width)
 	{
-		map[0]
+		if (isWall(map[0][width]) || isWall(map[game->map_height - 1][width]))
+			errorExit("Invalid map(Wall)");
 		width++;
 	}
 	while (height < game->map_height)
 	{
+		if (isWall(map[height][0]) || isWall(map[height][game->map_width - 1]))
+			errorExit("Invalid map(Wall)");
 		height++;
 	}
-
 }
 
 static char	isValidCharacter(char c)
@@ -79,7 +82,7 @@ void	checkRectangleAndValidChar(char **map, t_ptr *game)
 		}
 		if (pre_width)
 			if (pre_width - width)
-				errorExit("Map Rectangle")
+				errorExit("Invalid map(Rectangle)");
 		pre_width = width;
 		height++;
 	}

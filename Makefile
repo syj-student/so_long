@@ -6,7 +6,7 @@
 #    By: yusong <42.4.yusong@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/01 10:14:35 by yusong            #+#    #+#              #
-#    Updated: 2021/11/02 12:21:40 by yusong           ###   ########.fr        #
+#    Updated: 2021/11/02 18:32:19 by yusong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ HEADER = headerfile.h
 DYLIB = libmlx.dylib
 DYLIB_DIR = minilibx
 SRCS = ./src/main.c \
-		./src/map.c \
+		./src/map.c ./src/map_checker.c ./src/map_checker2.c\
 		./src/ft_split.c
 OBJS = $(SRCS:.c=.o)
 
