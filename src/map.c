@@ -6,15 +6,16 @@
 /*   By: yusong <42.4.yusong@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 09:50:33 by yusong            #+#    #+#             */
-/*   Updated: 2021/11/02 17:49:33 by yusong           ###   ########.fr       */
+/*   Updated: 2021/11/04 09:19:38 by yusong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "headerfile.h"
 
-void	loadMap(char *map_name, char **map, t_ptr *game)
+void	loadMap(char *map_name, char ***map1, t_ptr *game)
 {
 	int		map_fd;
+	char	**map;
 
 	map_fd = open(map_name, O_RDONLY);
 	if (map_fd == -1)
@@ -22,6 +23,7 @@ void	loadMap(char *map_name, char **map, t_ptr *game)
 	map = readLines(map_fd);
 	mapChecker(map, game);
 	setPlayerPosition(map, game);
+	*map1 = map;
 }
 
 char	**readLines(int fd)

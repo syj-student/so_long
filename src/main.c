@@ -6,7 +6,7 @@
 /*   By: yusong <42.4.yusong@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 10:27:54 by yusong            #+#    #+#             */
-/*   Updated: 2021/11/02 18:35:06 by yusong           ###   ########.fr       */
+/*   Updated: 2021/11/04 16:15:46 by yusong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,24 @@ int	main(int argc, char **argv)
 	t_ptr	game;
 	char	**map;
 
-	loadMap("../map/map.ber", map, &game);
+	loadMap("../map/map.ber", &map, &game);
+	int x, y;
+	x = 0;
+	while (map[x])
+	{
+		y = 0;
+		while (map[x][y])
+		{
+			printf("%c", map[x][y]);
+			y++;
+		}
+		printf("\n");
+		x++;
+	}
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, game.map_width * 100,\
 								game.map_height * 100, "so_long");
+	mlx_loop(game.mlx);
 }
 
 // 키이벤트 발생시

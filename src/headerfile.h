@@ -6,7 +6,7 @@
 /*   By: yusong <42.4.yusong@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 10:28:11 by yusong            #+#    #+#             */
-/*   Updated: 2021/11/02 17:48:53 by yusong           ###   ########.fr       */
+/*   Updated: 2021/11/04 09:17:21 by yusong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ typedef struct s_ptr
 	size_t	map_width;
 	size_t	map_height;
 	size_t	player_x;
-	size_t	palyer_y;
+	size_t	player_y;
 }				t_ptr;
 
 //	main.c	/ 0
 void	errorExit(char *error_msg);
 
 //	map.c	/ full / static 1
-void	loadMap(char *map_name, char **map, t_ptr *game);
+void	loadMap(char *map_name, char ***map1, t_ptr *game);
 char	**readLines(int fd);
 char	*combineTwoLines(char *l1, char *l2);
 size_t	ft_strlen(char *str);

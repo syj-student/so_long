@@ -66,5 +66,6 @@ void	setPlayerPosition(char **map, t_ptr *game)
 			}
 			j++;
 		}
+		i++;
 	}
 }
