@@ -6,7 +6,7 @@
 /*   By: yusong <42.4.yusong@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 10:28:11 by yusong            #+#    #+#             */
-/*   Updated: 2021/11/04 09:17:21 by yusong           ###   ########.fr       */
+/*   Updated: 2021/12/03 19:16:26 by yusong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,21 @@ typedef struct s_ptr
 {
 	void	*mlx;
 	void	*win;
+	char	**map;
 	size_t	map_width;
 	size_t	map_height;
 	size_t	player_x;
 	size_t	player_y;
+	size_t	esc_x;
+	size_t	esc_y;
+	size_t	total_c;
 }				t_ptr;
 
-//	main.c	/ 0
+//	main.c	/
 void	errorExit(char *error_msg);
 
 //	map.c	/ full / static 1
-void	loadMap(char *map_name, char ***map1, t_ptr *game);
+void	loadMap(char *map_name, t_ptr *game);
 char	**readLines(int fd);
 char	*combineTwoLines(char *l1, char *l2);
 size_t	ft_strlen(char *str);
@@ -43,7 +47,7 @@ void	mapChecker(char **map, t_ptr *game);
 void	checkSurroundWall(char **map, t_ptr *game);
 void	checkRectangleAndValidChar(char **map, t_ptr *game);
 
-//	map_checker2.c	/ 3 / static 1
+//	map_checker2.c	/ 4 / static 2
 void	mapComponentCheck(char **map);
 void	setPlayerPosition(char **map, t_ptr *game);
 
@@ -51,5 +55,10 @@ void	setPlayerPosition(char **map, t_ptr *game);
 void	*safeMalloc(int malloc_size);
 size_t	ft_strlcpy(char *dest, char *src, size_t size);
 char	**ft_split(char *s, char c);
+
+// event_handle.c / 
+int		keyEvent(int keycode, t_ptr *game);
+void	movePosition(int xy, int d, t_ptr *game);
+void	changePosition(size_t dx, size_t dy, t_ptr *game);
 
 #endif

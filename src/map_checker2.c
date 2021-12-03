@@ -47,23 +47,35 @@ void	mapComponentCheck(char **map)
 	}
 }
 
+static void	counter(size_t i, size_t j, t_ptr *game)
+{
+	if (game->map[i][j] == 'P')
+	{
+		game->player_x = j;
+		game->player_y = i;
+	}
+	else if (game->map[i][j] == 'C')
+		game->total_c++;
+	else if (game->map[i][j] == 'E')
+	{
+		game->esc_x = j;
+		game->esc_y = i;
+	}
+}
+
 void	setPlayerPosition(char **map, t_ptr *game)
 {
 	int	i;
 	int	j;
 
 	i = 0;
+	game->total_c = 0;
 	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'P')
-			{
-				game->player_x = j;
-				game->player_y = i;
-				return ;
-			}
+			counter(i, j, game);
 			j++;
 		}
 		i++;
