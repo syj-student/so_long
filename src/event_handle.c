@@ -24,7 +24,7 @@ int	keyEvent(int keycode, t_ptr *game)
 		movePosition(0, -1, game);
 	else if (keycode == 2)
 		movePosition(0, 1, game);
-
+	return (1);
 }
 
 void	movePosition(int xy, int d, t_ptr *game)
@@ -53,8 +53,10 @@ void	movePosition(int xy, int d, t_ptr *game)
 	{
 		if (game->total_c == 0)
 			exit(0);
-		
 	}
+	else if (game->map[dx][dy] == '0')
+		changePosition(dx, dy, game);
+	game->event_flag = 1;
 }
 
 void	changePosition(size_t dx, size_t dy, t_ptr *game)
@@ -65,8 +67,55 @@ void	changePosition(size_t dx, size_t dy, t_ptr *game)
 	game->map[dx][dy] = 'P';
 }
 
-char	positionCheckY(int dxy, t_ptr *game)
+static void	printImg(size_t x, size_t y, t_ptr *game)
 {
-	if (dxy <= 0 || dxy >= game->map_width)
-		return (0);
+	if (game->map[x][y] == '0')
+		mlx_put_image_to_window(game->mlx, game->win, game->img[0], 100 * x, 100 * y);
+	else if (game->map[x][y] == '1')
+		mlx_put_image_to_window(game->mlx, game->win, game->img[1], 100 * x, 100 * y);
+	else if (game->map[x][y] == 'P')
+		mlx_put_image_to_window(game->mlx, game->win, game->img[2], 100 * x, 100 * y);
+	else if (game->map[x][y] == 'C')
+		mlx_put_image_to_window(game->mlx, game->win, game->img[3], 100 * x, 100 * y);
+	else if (game->map[x][y] == 'E')
+		mlx_put_image_to_window(game->mlx, game->win, game->img[4], 100 * x, 100 * y);
+}
+
+
+int	printScreen(t_ptr *game)
+{
+	size_t	x;
+	size_t	y;
+
+	if (game->event_flag == 1)
+	{
+		mlx_clear_window(game->mlx, game->win);
+		x = 0;
+		while (x < game->map_height)
+		{
+			y = 0;
+			while (y < game->map_width)
+			{
+				printImg(x, y, game);
+				y++;
+			}
+			x++;
+		}
+		game->event_flag = 0;
+	}
+	printf("ps check\n");
+	return (1);
+}
+
+void	makeImage(t_ptr *game)
+{
+	int	x;
+
+	x = 100;
+	game->img[0] = mlx_png_file_to_image(game->mlx, "img/field.png", &x, &x);
+	game->img[1] = mlx_png_file_to_image(game->mlx, "img/wall.png", &x, &x);
+	game->img[2] = mlx_png_file_to_image(game->mlx, "img/player.png", &x, &x);
+	game->img[3] = mlx_png_file_to_image(game->mlx, "img/food.png", &x, &x);
+	game->img[4] = mlx_png_file_to_image(game->mlx, "img/exit.png", &x, &x);
+	game->event_flag = 1;
 }

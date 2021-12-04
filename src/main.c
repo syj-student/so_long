@@ -6,7 +6,7 @@
 /*   By: yusong <42.4.yusong@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 10:27:54 by yusong            #+#    #+#             */
-/*   Updated: 2021/12/03 19:22:27 by yusong           ###   ########.fr       */
+/*   Updated: 2021/12/04 17:37:34 by yusong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,32 @@ int	main(int argc, char **argv)
 {
 	t_ptr	game;
 
-	loadMap("../map/map.ber", &game);
+	loadMap("map/map.ber", &game);
 
-	int x, y;
-	x = 0;
-	while (game.map[x])
-	{
-		y = 0;
-		while (game.map[x][y])
-		{
-			printf("%c", game.map[x][y]);
-			y++;
-		}
-		printf("\n");
-		x++;
-	}
-	printf("esc %ld %ld\n", game.esc_x, game.esc_y);
-	printf("esc %ld %ld\n", game.player_x, game.player_y);
-	printf("height : %ld / width : %ld %c %ld\n", game.map_height, game.map_width, game.map[0][5], game.total_c);
-	// game.mlx = mlx_init();
-	// game.win = mlx_new_window(game.mlx, game.map_width * 100,\
-	// 							game.map_height * 100, "so_long");
-	// mlx_loop(game.mlx);
+	// int x, y;
+	// x = 0;
+	// while (game.map[x])
+	// {
+	// 	y = 0;
+	// 	while (game.map[x][y])
+	// 	{
+	// 		printf("%c", game.map[x][y]);
+	// 		y++;
+	// 	}
+	// 	printf("\n");
+	// 	x++;
+	// }
+	// printf("esc %ld %ld\n", game.esc_x, game.esc_y);
+	// printf("esc %ld %ld\n", game.player_x, game.player_y);
+	// printf("height : %ld / width : %ld %c %ld\n", game.map_height, game.map_width, game.map[0][5], game.total_c);
+	game.mlx = mlx_init();
+	makeImage(&game);
+	printf("m check\n");
+	game.win = mlx_new_window(game.mlx, game.map_height * 100,\
+								game.map_width * 100, "so_long");
+	mlx_loop_hook(game.mlx, printScreen, &game);
+	mlx_key_hook(game.win, keyEvent, &game);
+	mlx_loop(game.mlx);
 }
 
 // 키이벤트 발생시

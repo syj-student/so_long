@@ -6,7 +6,7 @@
 /*   By: yusong <42.4.yusong@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 10:28:11 by yusong            #+#    #+#             */
-/*   Updated: 2021/12/03 19:16:26 by yusong           ###   ########.fr       */
+/*   Updated: 2021/12/04 17:01:40 by yusong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_ptr
 	void	*mlx;
 	void	*win;
 	char	**map;
+	char	event_flag;
 	size_t	map_width;
 	size_t	map_height;
 	size_t	player_x;
@@ -31,6 +32,7 @@ typedef struct s_ptr
 	size_t	esc_x;
 	size_t	esc_y;
 	size_t	total_c;
+	void	*img[5];
 }				t_ptr;
 
 //	main.c	/
@@ -60,5 +62,6 @@ char	**ft_split(char *s, char c);
 int		keyEvent(int keycode, t_ptr *game);
 void	movePosition(int xy, int d, t_ptr *game);
 void	changePosition(size_t dx, size_t dy, t_ptr *game);
-
+void	makeImage(t_ptr *game);
+int		printScreen(t_ptr *game);
 #endif
