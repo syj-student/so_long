@@ -101,6 +101,5 @@ int	printScreen(t_ptr *game)
 		}
 		game->event_flag = 0;
 	}
-	printf("ps check\n");
 	return (1);
 }
