@@ -49,11 +49,8 @@ void	movePosition(int xy, int d, t_ptr *game)
 		changePosition(dx, dy, game);
 		game->total_c--;
 	}
-	else if (game->map[dx][dy] == 'E')
-	{
-		if (game->total_c == 0)
+	else if (game->map[dx][dy] == 'E' && game->total_c == 0)
 			exit(0);
-	}
 	else if (game->map[dx][dy] == '0')
 		changePosition(dx, dy, game);
 	game->event_flag = 1;
@@ -69,16 +66,14 @@ void	changePosition(size_t dx, size_t dy, t_ptr *game)
 
 static void	printImg(size_t x, size_t y, t_ptr *game)
 {
-	if (game->map[x][y] == '0')
+	if (game->map[x][y] == '1')
 		mlx_put_image_to_window(game->mlx, game->win, game->img[0], 100 * x, 100 * y);
-	else if (game->map[x][y] == '1')
-		mlx_put_image_to_window(game->mlx, game->win, game->img[1], 100 * x, 100 * y);
 	else if (game->map[x][y] == 'P')
-		mlx_put_image_to_window(game->mlx, game->win, game->img[2], 100 * x, 100 * y);
+		mlx_put_image_to_window(game->mlx, game->win, game->img[1], 100 * x, 100 * y);
 	else if (game->map[x][y] == 'C')
-		mlx_put_image_to_window(game->mlx, game->win, game->img[3], 100 * x, 100 * y);
+		mlx_put_image_to_window(game->mlx, game->win, game->img[2], 100 * x, 100 * y);
 	else if (game->map[x][y] == 'E')
-		mlx_put_image_to_window(game->mlx, game->win, game->img[4], 100 * x, 100 * y);
+		mlx_put_image_to_window(game->mlx, game->win, game->img[3], 100 * x, 100 * y);
 }
 
 
@@ -105,17 +100,4 @@ int	printScreen(t_ptr *game)
 	}
 	printf("ps check\n");
 	return (1);
-}
-
-void	makeImage(t_ptr *game)
-{
-	int	x;
-
-	x = 100;
-	game->img[0] = mlx_png_file_to_image(game->mlx, "img/field.png", &x, &x);
-	game->img[1] = mlx_png_file_to_image(game->mlx, "img/wall.png", &x, &x);
-	game->img[2] = mlx_png_file_to_image(game->mlx, "img/player.png", &x, &x);
-	game->img[3] = mlx_png_file_to_image(game->mlx, "img/food.png", &x, &x);
-	game->img[4] = mlx_png_file_to_image(game->mlx, "img/exit.png", &x, &x);
-	game->event_flag = 1;
 }

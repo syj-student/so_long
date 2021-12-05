@@ -51,16 +51,11 @@ static void	counter(size_t i, size_t j, t_ptr *game)
 {
 	if (game->map[i][j] == 'P')
 	{
-		game->player_x = j;
-		game->player_y = i;
+		game->player_x = i;
+		game->player_y = j;
 	}
 	else if (game->map[i][j] == 'C')
 		game->total_c++;
-	else if (game->map[i][j] == 'E')
-	{
-		game->esc_x = j;
-		game->esc_y = i;
-	}
 }
 
 void	setPlayerPosition(char **map, t_ptr *game)
