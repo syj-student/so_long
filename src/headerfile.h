@@ -6,7 +6,7 @@
 /*   By: yusong <42.4.yusong@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 10:28:11 by yusong            #+#    #+#             */
-/*   Updated: 2021/12/05 17:05:17 by yusong           ###   ########.fr       */
+/*   Updated: 2021/12/06 14:00:19 by yusong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_ptr
 //	main.c	/
 void	errorExit(char *error_msg);
 void	makeImage(t_ptr *game);
+void	close(t_ptr *game);
 
 //	map.c	/ full / static 1
 void	loadMap(char *map_name, t_ptr *game);
