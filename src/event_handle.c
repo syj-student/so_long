@@ -32,7 +32,7 @@ void	movePosition(int xy, int d, t_ptr *game)
 	size_t	dx;
 	size_t	dy;
 
-	if (xy)
+	if (!xy)
 	{
 		dx = game->player_x;
 		dy = game->player_y + d;
@@ -68,16 +68,16 @@ static void	printImg(size_t x, size_t y, t_ptr *game)
 {
 	if (game->map[x][y] == '1')
 		mlx_put_image_to_window \
-		(game->mlx, game->win, game->img[0], 100 * x, 100 * y);
+		(game->mlx, game->win, game->img[0], 100 * y, 100 * x);
 	else if (game->map[x][y] == 'P')
 		mlx_put_image_to_window \
-		(game->mlx, game->win, game->img[1], 100 * x, 100 * y);
+		(game->mlx, game->win, game->img[1], 100 * y, 100 * x);
 	else if (game->map[x][y] == 'C')
 		mlx_put_image_to_window \
-		(game->mlx, game->win, game->img[2], 100 * x, 100 * y);
+		(game->mlx, game->win, game->img[2], 100 * y, 100 * x);
 	else if (game->map[x][y] == 'E')
 		mlx_put_image_to_window \
-		(game->mlx, game->win, game->img[3], 100 * x, 100 * y);
+		(game->mlx, game->win, game->img[3], 100 * y, 100 * x);
 }
 
 int	printScreen(t_ptr *game)
@@ -90,7 +90,7 @@ int	printScreen(t_ptr *game)
 		mlx_clear_window(game->mlx, game->win);
 		x = 0;
 		while (x < game->map_height)
-		{
+		{		
 			y = 0;
 			while (y < game->map_width)
 			{
