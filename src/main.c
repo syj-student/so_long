@@ -6,7 +6,7 @@
 /*   By: yusong <42.4.yusong@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 10:27:54 by yusong            #+#    #+#             */
-/*   Updated: 2021/12/07 17:44:39 by yusong           ###   ########.fr       */
+/*   Updated: 2021/12/07 18:05:56 by yusong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	main(int argc, char **argv)
 {
 	t_ptr	game;
 
-	loadMap("map/map.ber", &game);
+	if (argc != 2)
+		errorExit("MapInput");
+	loadMap(argv[1], &game);
 	game.mlx = mlx_init();
 	makeImage(&game);
 	game.win = mlx_new_window(game.mlx, game.map_width * 100, \
